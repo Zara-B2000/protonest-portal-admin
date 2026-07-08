@@ -1,0 +1,424 @@
+/* globals.css — Protonest Portal */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    background: var(--c-bg, #05060F);
+    color: var(--c-text1, #EEF0FB);
+  }
+  input[type="file"] {
+    @apply w-full;
+  }
+}
+
+/* ── Theme tokens ── */
+:root {
+  --c-bg:    #05060F;
+  --c-bg2:   #090C1A;
+  --c-bg3:   #0D1124;
+  --c-bg4:   #111730;
+  --c-bg5:   #161D3A;
+  --c-border:  rgba(91,66,232,.16);
+  --c-border2: rgba(91,66,232,.32);
+  --c-text1: #EEF0FB;
+  --c-text2: #8896B8;
+  --c-text3: #4A567A;
+  --pn-sidebar-bg:    #090C1A;
+  --pn-sidebar-text1: #EEF0FB;
+  --pn-sidebar-text2: #8896B8;
+  --pn-sidebar-text3: #4A567A;
+}
+
+/* ── Light theme overrides ── */
+html.light {
+  color-scheme: light;
+
+  --c-bg:    #F2F4FF;
+  --c-bg2:   #FFFFFF;
+  --c-bg3:   #ECEFFE;
+  --c-bg4:   #E2E7FC;
+  --c-bg5:   #D6DEFA;
+  --c-text1: #0D0D1C;
+  --c-text2: #3D3D6B;
+  --c-text3: #7070A0;
+  --c-border:  rgba(107,78,255,.13);
+  --c-border2: rgba(107,78,255,.28);
+  --pn-sidebar-bg:    #FFFFFF;
+  --pn-sidebar-text1: #0D0D1C;
+  --pn-sidebar-text2: #3D3D6B;
+  --pn-sidebar-text3: #8484A8;
+}
+
+html.light body {
+  background: var(--c-bg);
+  background-image:
+    radial-gradient(ellipse at 15% 35%, rgba(107,78,255,0.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 75%, rgba(91,66,232,0.05) 0%, transparent 45%);
+  background-attachment: fixed;
+  color: var(--c-text1);
+}
+
+html.light aside {
+  background: var(--pn-sidebar-bg) !important;
+  border-color: rgba(107,78,255,.10) !important;
+  box-shadow: 2px 0 20px rgba(91,66,232,0.06) !important;
+}
+
+/* Sidebar nav text */
+html.light .pn-nav-item {
+  color: #3D3D6B !important;
+}
+html.light .pn-nav-item:hover {
+  background: rgba(107,78,255,.07) !important;
+  color: #0D0D1C !important;
+}
+html.light .pn-nav-item.pn-active {
+  background: rgba(107,78,255,.10) !important;
+  color: #5B42E8 !important;
+  font-weight: 600 !important;
+}
+
+/* Sidebar labels & user row */
+html.light .pn-signout-btn {
+  color: #DC2626 !important;
+}
+html.light .pn-user-row div {
+  color: var(--pn-sidebar-text1) !important;
+}
+
+/* ── Animate transitions preference ── */
+html[data-animations="off"] *,
+html[data-animations="off"] *::before,
+html[data-animations="off"] *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   BUTTON DESIGN SYSTEM — single source of truth for all pn-btn-* classes
+   Use alongside Tailwind utilities for width (w-full, w-auto) and margin.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Primary: purple gradient, full-height (lg = 52px, default) ── */
+.pn-btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  height: 52px; padding: 0 28px;
+  background: linear-gradient(135deg, #7B5CF6 0%, #4F35D4 100%);
+  border: none; border-radius: 12px;
+  font-family: inherit; font-size: 0.9375rem; font-weight: 600;
+  letter-spacing: 0.02em; color: #fff; cursor: pointer;
+  text-decoration: none; white-space: nowrap;
+  box-shadow: 0 4px 22px rgba(99,71,245,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
+  transition: transform 0.18s, box-shadow 0.18s;
+  position: relative; overflow: hidden;
+}
+.pn-btn-primary::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 55%);
+  pointer-events: none;
+}
+.pn-btn-primary::after {
+  content: ''; position: absolute; width: 120%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  left: -120%; transition: left 0.5s;
+}
+.pn-btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(99,71,245,0.55), inset 0 1px 0 rgba(255,255,255,0.2);
+}
+.pn-btn-primary:hover:not(:disabled)::after { left: 120%; }
+.pn-btn-primary:active:not(:disabled) { transform: translateY(0); }
+.pn-btn-primary:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+/* Loading override — keeps button at full opacity with a wait cursor */
+.pn-btn-primary.pn-btn--loading,
+.pn-btn-google.pn-btn--loading { opacity: 1 !important; cursor: wait !important; }
+
+/* Size modifiers — override height/padding/font on .pn-btn-primary (and other variants) */
+.pn-btn-md { height: 44px !important; padding: 0 20px !important; font-size: 0.875rem !important; border-radius: 12px !important; }
+.pn-btn-sm { height: 36px !important; padding: 0 16px !important; font-size: 0.8125rem !important; border-radius: 12px !important; }
+
+/* ── Google / OAuth — full-width, 52px matches primary ── */
+.pn-btn-google {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; height: 52px; padding: 0 28px;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px; color: #EDF0F8;
+  font-family: inherit; font-size: 0.9375rem; font-weight: 500;
+  cursor: pointer; text-decoration: none;
+  transition: border-color 0.2s, background 0.2s, transform 0.18s;
+}
+.pn-btn-google:hover:not(:disabled) {
+  border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.07);
+  transform: translateY(-1px);
+}
+.pn-btn-google:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+
+/* ── Secondary — outline brand (same baseline as primary: 52px) ── */
+.pn-btn-secondary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 52px; padding: 0 28px;
+  background: transparent; border: 1.5px solid rgba(107,78,255,0.45);
+  border-radius: 12px; color: #7B5CF6;
+  font-family: inherit; font-size: 0.9375rem; font-weight: 600;
+  cursor: pointer; text-decoration: none; white-space: nowrap;
+  transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.18s;
+}
+.pn-btn-secondary:hover:not(:disabled) {
+  background: rgba(107,78,255,0.08); border-color: rgba(107,78,255,0.70); color: #6046D0;
+  transform: translateY(-1px);
+}
+.pn-btn-secondary:disabled { opacity: 0.65; cursor: not-allowed; }
+
+/* ── Ghost — subtle dark-bg button (same baseline: 52px) ── */
+.pn-btn-ghost {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 52px; padding: 0 28px;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px; color: #C4B5FD;
+  font-family: inherit; font-size: 0.9375rem; font-weight: 600;
+  cursor: pointer; text-decoration: none; white-space: nowrap;
+  transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.18s;
+}
+.pn-btn-ghost:hover:not(:disabled) {
+  background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.18);
+  color: #EEF0FB; transform: translateY(-1px);
+}
+.pn-btn-ghost:disabled { opacity: 0.65; cursor: not-allowed; }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   LIGHT THEME — BEAUTIFUL COMPONENT STYLES
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Buttons ── */
+html.light .pn-btn-google {
+  background: #FFFFFF;
+  border: 1.5px solid rgba(0,0,0,0.1);
+  color: #2D2D4A;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+html.light .pn-btn-google:hover:not(:disabled) {
+  background: #F9FAFB; border-color: rgba(0,0,0,0.18);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.09); transform: translateY(-1px);
+}
+html.light .pn-btn-ghost {
+  background: rgba(107,78,255,0.07); border-color: rgba(107,78,255,0.25); color: #5B42E8;
+}
+html.light .pn-btn-ghost:hover:not(:disabled) {
+  background: rgba(107,78,255,0.13); border-color: rgba(107,78,255,0.42); color: #4530C8;
+}
+
+/* ── Auth: page background — subtle radial glow ── */
+.pn-auth-page-bg { position: fixed; inset: 0; background: #05060F; z-index: 0; }
+html.light .pn-auth-page-bg {
+  background: #EEF0FF;
+  background-image:
+    radial-gradient(ellipse at 25% 40%, rgba(107,78,255,0.13) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 75%, rgba(91,66,232,0.08) 0%, transparent 45%);
+}
+
+/* ── Auth: main container glass ── */
+.pn-auth-container { background: rgba(9,10,20,0.4); backdrop-filter: blur(24px); }
+html.light .pn-auth-container {
+  background: rgba(255,255,255,0.97);
+  box-shadow: 0 0 0 1px rgba(107,78,255,0.09), 0 24px 64px rgba(91,66,232,0.09);
+}
+
+/* ── Auth: left brand panel — gradient + dot grid pattern ── */
+.pn-auth-left-panel { background: #060813; border-right: 1px solid rgba(99,71,245,0.12); }
+html.light .pn-auth-left-panel {
+  background: linear-gradient(150deg, #E8EAFF 0%, #DDDEFF 45%, #D2D8FF 100%);
+  border-right: 1px solid rgba(107,78,255,0.18);
+  position: relative;
+  overflow: hidden;
+}
+html.light .pn-auth-left-panel::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(107,78,255,0.15) 1.5px, transparent 1.5px);
+  background-size: 26px 26px;
+  pointer-events: none; z-index: 0;
+}
+html.light .pn-auth-left-panel > * { position: relative; z-index: 1; }
+html.light .icard {
+  background: rgba(107,78,255,0.09) !important;
+  border-color: rgba(107,78,255,0.22) !important;
+}
+
+/* ── Auth: page heading ── */
+.pn-auth-h1 { color: #EDF0F8; }
+html.light .pn-auth-h1 { color: #0D0D1C; }
+
+/* ── Auth: info card value text ── */
+.pn-auth-card-val { font-size: 1rem; font-weight: 700; color: #EDF0F8; }
+html.light .pn-auth-card-val { color: #2A1A72; }
+
+/* ── Auth: OR divider lines ── */
+.pn-auth-divider-line { flex: 1; height: 1px; background: rgba(255,255,255,0.06); }
+html.light .pn-auth-divider-line { background: rgba(107,78,255,0.14); }
+
+/* ── Auth: password eye-toggle button ── */
+.pn-eye-btn {
+  position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px; cursor: pointer; color: #64748B; width: 42px; height: 36px;
+  display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+}
+.pn-eye-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: #fff; }
+html.light .pn-eye-btn { background: rgba(107,78,255,0.05); border-color: rgba(107,78,255,0.18); color: #8484A8; }
+html.light .pn-eye-btn:hover { background: rgba(107,78,255,0.13); border-color: rgba(107,78,255,0.36); color: #5B42E8; }
+
+/* ── Auth: options menu button ── */
+.pn-menu-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: center;
+  color: #64748B; cursor: pointer; transition: all 0.2s;
+}
+.pn-menu-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: #fff; }
+html.light .pn-menu-btn { background: rgba(107,78,255,0.06); border-color: rgba(107,78,255,0.16); color: #8484A8; }
+html.light .pn-menu-btn:hover { background: rgba(107,78,255,0.14); border-color: rgba(107,78,255,0.32); color: #5B42E8; }
+
+/* ── Auth: success confirmation card ── */
+.pn-auth-success-card { background: rgba(9,10,20,0.65); border: 1px solid rgba(99,71,245,0.2); }
+html.light .pn-auth-success-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(107,78,255,0.15);
+  box-shadow: 0 8px 48px rgba(91,66,232,0.14), 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* ── Auth: input overrides ── */
+html.light .pn-input {
+  background: #FFFFFF; border-color: rgba(107,78,255,0.22); color: #0D0D1C;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+html.light .pn-input::placeholder { color: #9090B8; }
+html.light .pn-input:focus {
+  border-color: #6B4EFF;
+  box-shadow: 0 0 0 3px rgba(107,78,255,0.15), 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* ── Dashboard: base page color ── */
+html.light .pn-dash-page { color: var(--c-text1); }
+
+/* ── Dashboard: hero banner ── */
+.pn-dash-banner {
+  background: linear-gradient(135deg, #161933 0%, #0C0D1B 100%);
+  border: 1px solid rgba(91,66,232,0.25);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+/* Banner text — always white in dark theme */
+.pn-dash-banner .text-white    { color: #FFFFFF !important; }
+.pn-dash-banner .text-slate-300 { color: rgba(255,255,255,0.82) !important; }
+.pn-dash-banner .bg-purple-950\/50  { background: rgba(0,0,0,0.22) !important; }
+.pn-dash-banner .border-purple-800\/30 { border-color: rgba(255,255,255,0.22) !important; }
+.pn-dash-banner .text-purple-300   { color: rgba(255,255,255,0.90) !important; }
+/* Banner buttons: frosted-white pill on purple */
+html.light .pn-dash-banner .pn-btn-primary {
+  background: linear-gradient(135deg, #7B5CF6 0%, #4F35D4 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 22px rgba(99,71,245,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
+}
+html.light .pn-dash-banner .pn-btn-primary:hover:not(:disabled) {
+  box-shadow: 0 8px 32px rgba(99,71,245,0.55), inset 0 1px 0 rgba(255,255,255,0.2); transform: translateY(-2px);
+}
+html.light .pn-dash-banner .pn-btn-secondary {
+  background: transparent;
+  border-color: rgba(107,78,255,0.3);
+  color: #5B42E8;
+}
+html.light .pn-dash-banner .pn-btn-secondary:hover:not(:disabled) {
+  background: rgba(107,78,255,0.08);
+  border-color: rgba(107,78,255,0.6);
+  color: #4F35D4; transform: translateY(-1px);
+}
+
+/* ── Dashboard: name gradient ── */
+.pn-dash-name-grad {
+  background: linear-gradient(to right, #EDE9FF, #C4B5FD);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+html.light .pn-dash-name-grad {
+  background: linear-gradient(to right, #5B42E8, #7C5CF7);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+/* ── Dashboard: stat & content cards — white with purple shadow ── */
+.pn-dash-card {
+  background: rgba(11,15,25,0.6);
+  border: 1px solid rgba(91,66,232,0.12);
+  border-top: 2px solid rgba(91,66,232,0.30);
+  backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+}
+.pn-dash-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, rgba(91,66,232,0.05) 0%, transparent 55%);
+  pointer-events: none;
+}
+html.light .pn-dash-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(107,78,255,0.10);
+  border-top: 2px solid rgba(107,78,255,0.32);
+  backdrop-filter: none;
+  box-shadow: 0 2px 20px rgba(91,66,232,0.08), 0 1px 3px rgba(0,0,0,0.04);
+  transition: box-shadow 0.2s, border-color 0.2s, transform 0.18s;
+}
+html.light .pn-dash-card::before { display: none; }
+html.light .pn-dash-card:hover {
+  box-shadow: 0 6px 32px rgba(91,66,232,0.16), 0 2px 8px rgba(0,0,0,0.05);
+  border-color: rgba(107,78,255,0.24);
+  border-top-color: rgba(107,78,255,0.48);
+  transform: translateY(-1px);
+}
+html.light .pn-dash-card .text-white    { color: #0D0D1C !important; }
+html.light .pn-dash-card .text-slate-200 { color: #2D2D5A !important; }
+html.light .pn-dash-card .text-slate-300 { color: #3D3D6B !important; }
+html.light .pn-dash-card .text-slate-400 { color: #6B6B99 !important; }
+html.light .pn-dash-card .text-slate-500 { color: #8484A8 !important; }
+html.light .pn-dash-card .text-slate-600 { color: #8484A8 !important; }
+html.light .pn-dash-card tbody tr:hover  { background: rgba(107,78,255,0.03) !important; }
+/* Stat card icon badges: more vibrant in light mode */
+html.light .pn-dash-card .bg-blue-500\/10    { background: rgba(59,130,246,0.12) !important; }
+html.light .pn-dash-card .text-blue-400      { color: #1D4ED8 !important; }
+html.light .pn-dash-card .bg-amber-500\/10   { background: rgba(245,158,11,0.12) !important; }
+html.light .pn-dash-card .text-amber-400     { color: #B45309 !important; }
+html.light .pn-dash-card .bg-purple-500\/10  { background: rgba(107,78,255,0.12) !important; }
+html.light .pn-dash-card .text-purple-400    { color: #6B21A8 !important; }
+html.light .pn-dash-card .bg-emerald-500\/10 { background: rgba(16,185,129,0.12) !important; }
+html.light .pn-dash-card .text-emerald-400   { color: #047857 !important; }
+
+/* ── Dashboard: card section header row ── */
+.pn-dash-card-header { background: rgba(15,20,40,0.2); }
+html.light .pn-dash-card-header {
+  background: linear-gradient(to right, #F5F3FF, #F2F4FF);
+  border-bottom-color: rgba(107,78,255,0.09) !important;
+}
+
+/* ── Dashboard: table head row ── */
+.pn-dash-table-head { background: rgba(15,20,40,0.4); }
+html.light .pn-dash-table-head { background: linear-gradient(to right, #F5F3FF, #F2F4FF); }
+
+/* ── Dashboard: quick resource links ── */
+.pn-dash-resource-link { background: rgba(15,20,40,0.3); }
+html.light .pn-dash-resource-link {
+  background: #F5F3FF;
+  border-color: rgba(107,78,255,0.14) !important;
+  transition: background 0.18s, border-color 0.18s;
+}
+html.light .pn-dash-resource-link:hover {
+  background: #EDE9FF;
+  border-color: rgba(107,78,255,0.3) !important;
+}
+html.light .pn-dash-resource-link .text-slate-300 { color: #2D2D5A !important; }
+html.light .pn-dash-resource-link .text-slate-500 { color: #8484A8 !important; }
+html.light .pn-dash-resource-link .text-slate-600 { color: #8484A8 !important; }
+html.light .pn-dash-resource-link:hover svg:last-child { color: #5B42E8 !important; }
