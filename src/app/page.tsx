@@ -51,58 +51,62 @@ export default async function AdminGatePage() {
         }}
       />
 
-      {/* Nav */}
-      <nav className="relative z-10 w-full">
-        <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-          <img src="/protonest-logo.png" alt="Protonest" className="h-8 w-auto" />
-          <span className="hidden sm:inline-flex items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-white/10 rounded-full px-3 py-1 bg-white/50 dark:bg-transparent backdrop-blur-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            Internal Admin Portal
-          </span>
+      {/* Full-bleed Hero & Nav Section with background video (Always Dark style for high impact) */}
+      <div className="relative w-full min-h-[85vh] flex flex-col justify-between overflow-hidden border-b border-slate-900 bg-slate-950 text-white">
+        {/* Background Video */}
+        <div className="absolute inset-0 z-0 select-none pointer-events-none">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster="/pcb-hand-soldering.png"
+            className="w-full h-full object-cover opacity-75 dark:opacity-80"
+          >
+            <source src="/pcb-soldering.mp4" type="video/mp4" />
+          </video>
+          {/* Dark overlay to ensure contrast and premium feel */}
+          <div className="absolute inset-0 bg-slate-950/70 z-10" />
         </div>
-      </nav>
 
-      {/* Hero */}
-      <section className="relative z-10 max-w-6xl mx-auto px-6 pt-10 pb-16 md:pt-16 md:pb-20">
-        <div className="relative rounded-2xl border border-slate-200 dark:border-white/10 bg-white/40 dark:bg-black/40 backdrop-blur-md overflow-hidden p-8 md:p-12 shadow-xl dark:shadow-none">
-          {/* Video / Fallback image background */}
-          <div className="absolute inset-0 z-0 select-none pointer-events-none">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              poster="/pcb-hand-soldering.png"
-              className="w-full h-full object-cover opacity-[0.12] dark:opacity-[0.22] mix-blend-luminosity"
-            >
-              <source src="/pcb-soldering.mp4" type="video/mp4" />
-            </video>
-            {/* Ambient overlay to ensure contrast and readability */}
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-50 via-slate-50/80 to-transparent dark:from-[#05060F] dark:via-[#05060F]/80 dark:to-transparent" />
-          </div>
-
-          <div className="relative z-10 max-w-2xl">
-            <p className="text-sm font-semibold tracking-wide text-brand-500 dark:text-[#9D82F8] mb-4 uppercase">
-              Protonest Operations
-            </p>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-6 text-slate-900 dark:text-white">
-              Admin <span className="bg-gradient-to-r from-brand-500 to-indigo-600 dark:from-[#9D82F8] dark:to-[#C4B5FD] bg-clip-text text-transparent">Portal</span>
-            </h1>
-            <p className="text-base md:text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-10 max-w-xl">
-              The staff-only control center for Protonest PCB assembly orders —
-              quotes, production status, payments, and customer communication,
-              all in one place. Customer ordering now happens on our{" "}
-              <span className="text-slate-950 dark:text-slate-300 font-semibold">customer portal</span>.
-            </p>
-
-            <div className="flex flex-wrap items-center gap-4">
-              <Link href="/login" className="pn-btn-primary">
-                Sign In to Admin Portal
-              </Link>
+        {/* Content wrapper */}
+        <div className="relative z-10 w-full flex flex-col flex-1">
+          {/* Nav */}
+          <nav className="w-full">
+            <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+              <img src="/protonest-logo.png" alt="Protonest" className="h-8 w-auto" />
+              <span className="hidden sm:inline-flex items-center gap-2 text-xs font-semibold text-slate-300 border border-white/10 rounded-full px-3 py-1 bg-white/[0.03] backdrop-blur-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                Internal Admin Portal
+              </span>
             </div>
-          </div>
+          </nav>
+
+          {/* Hero */}
+          <section className="max-w-6xl mx-auto px-6 pt-16 pb-20 md:pt-24 md:pb-28 w-full my-auto">
+            <div className="max-w-2xl">
+              <p className="text-sm font-semibold tracking-wide text-[#9D82F8] mb-4 uppercase">
+                Protonest Operations
+              </p>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-6 text-white">
+                Admin <span className="bg-gradient-to-r from-brand-500 to-[#C4B5FD] bg-clip-text text-transparent">Portal</span>
+              </h1>
+              <p className="text-base md:text-lg text-slate-300 leading-relaxed mb-10 max-w-xl">
+                The staff-only control center for Protonest PCB assembly orders —
+                quotes, production status, payments, and customer communication,
+                all in one place. Customer ordering now happens on our{" "}
+                <span className="text-[#C4B5FD] font-semibold">customer portal</span>.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-4">
+                <Link href="/login" className="pn-btn-primary">
+                  Sign In to Admin Portal
+                </Link>
+              </div>
+            </div>
+          </section>
         </div>
-      </section>
+      </div>
 
       {/* Feature grid */}
       <section className="relative z-10 border-t border-slate-200 dark:border-white/10 bg-slate-100/50 dark:bg-black/20 backdrop-blur-sm">
