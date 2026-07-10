@@ -4,27 +4,37 @@ import { getCurrentProfile, isAdminProfile } from "@/services/auth";
 
 /** Build a reliable base URL that works on Vercel production, previews, and localhost */
 function getBaseUrl(request: Request): string {
-  // 1. Prefer explicit NEXT_PUBLIC_APP_URL env var (which is specific to this admin portal)
-  if (process.env.NEXT_PUBLIC_APP_URL) {
-    return process.env.NEXT_PUBLIC_APP_URL.replace(/\/$/, "");
-  }
+  // 1. Try to extract origin directly from the request URL
+  try {
+    const origin = new URL(request.url).origin;
+    if (origin && !origin.startsWith("null")) {
+      return origin;
+    }
+  } catch {}
 
-  // 2. Prefer explicit NEXT_PUBLIC_SITE_URL env var
-  if (process.env.NEXT_PUBLIC_SITE_URL) {
-    return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
-  }
-
-  // 3. On Vercel, x-forwarded-host reflects the actual domain being accessed
+  // 2. On Vercel, x-forwarded-host reflects the actual domain being accessed
   const forwardedHost = request.headers.get("x-forwarded-host");
   const forwardedProto = request.headers.get("x-forwarded-proto") ?? "https";
   if (forwardedHost) {
     return `${forwardedProto}://${forwardedHost}`;
   }
 
-  // 4. Fallback to host header
-  const host = request.headers.get("host") ?? "localhost:3000";
-  const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-  return `${protocol}://${host}`;
+  // 3. Fallback to host header
+  const host = request.headers.get("host");
+  if (host) {
+    const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
+    return `${protocol}://${host}`;
+  }
+
+  // 4. Fallback to explicit env vars if headers are missing
+  if (process.env.NEXT_PUBLIC_APP_URL) {
+    return process.env.NEXT_PUBLIC_APP_URL.replace(/\/$/, "");
+  }
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+  }
+
+  return "http://localhost:3000";
 }
 
 export async function GET(request: Request) {
