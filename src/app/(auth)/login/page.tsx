@@ -4,21 +4,7 @@ import { useState, Suspense } from "react";
 import Link from "next/link";
 import { createClient } from "@/services/supabase/client";
 import { useRouter, useSearchParams } from "next/navigation";
-import type { SupabaseClient } from "@supabase/supabase-js";
-
-async function getRedirectPath(supabase: SupabaseClient): Promise<string | null> {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return "/login";
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("role")
-    .eq("id", user.id)
-    .maybeSingle();
-  // This portal is admin-only — non-admin accounts (e.g. customers from the
-  // separate customer portal) are not allowed in, even if they authenticate
-  // successfully. Returning null signals "deny access" to the caller.
-  return profile?.role === "admin" ? "/admin/dashboard" : null;
-}
+import { verifyAndPromoteAdmin } from "./actions";
 
 // Spinner SVG — reused in both buttons
 function Spinner({ color = "white" }: { color?: string }) {
@@ -74,10 +60,9 @@ function LoginContent() {
       }
 
       setLoadingStep("Verifying access…");
-      const dest = await getRedirectPath(supabase);
+      const result = await verifyAndPromoteAdmin();
 
-      if (!dest) {
-        await supabase.auth.signOut();
+      if (!result.success) {
         setError("This portal is for Protonest staff only. Your account doesn't have admin access.");
         setLoadingType(null);
         setLoadingStep("");
@@ -85,7 +70,7 @@ function LoginContent() {
       }
 
       setLoadingStep("Redirecting…");
-      router.push(dest);
+      router.push("/admin/dashboard");
       router.refresh();
       // Keep spinner — page navigates away naturally
     } catch (err: any) {
