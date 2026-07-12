@@ -862,30 +862,31 @@ html.light .admin-layout-root .od-msg-err { color: #DC2626; }
 }
 
 @media (max-width: 640px) {
-  /* 2×2 stat grid — fits perfectly on phones, far better than 1-column */
+  /* All 4 stats stay in a single row on phones — compact card treatment below */
   .admin-layout-root .stats {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 7px;
     margin-bottom: 20px;
   }
 
   /* Compact stat cards on mobile */
   .admin-layout-root .sc {
     background: var(--bg4);
-    border-radius: 18px;
-    padding: 14px 14px 12px;
+    border-radius: 14px;
+    padding: 10px 8px 9px;
   }
   /* Disable hover lift + shimmer on touch devices */
   .admin-layout-root .sc:hover { transform: none; }
   .admin-layout-root .sc::after { animation: none; display: none; }
 
-  .admin-layout-root .sc-top { align-items: center; margin-bottom: 10px; }
-  .admin-layout-root .sc-icon { width: 32px; height: 32px; border-radius: 10px; }
-  .admin-layout-root .sc-icon svg { width: 16px; height: 16px; }
-  .admin-layout-root .sc-change { font-size: 0.625rem; padding: 3px 6px; border-radius: 20px; }
-  .admin-layout-root .sc-val { font-size: 1.625rem; letter-spacing: -0.5px; margin-bottom: 2px; }
-  .admin-layout-root .sc-lbl { font-size: 0.71875rem; line-height: 1.25; }
-  .admin-layout-root .sc-bar { margin-top: 10px; }
+  .admin-layout-root .sc-top { align-items: center; margin-bottom: 8px; }
+  .admin-layout-root .sc-icon { width: 26px; height: 26px; border-radius: 8px; }
+  .admin-layout-root .sc-icon svg { width: 13px; height: 13px; }
+  /* Change badge ("+0 today", "Urgent!" etc) doesn't fit a quarter-width card — hide it here */
+  .admin-layout-root .sc-change { display: none; }
+  .admin-layout-root .sc-val { font-size: 1.375rem; letter-spacing: -0.4px; margin-bottom: 2px; }
+  .admin-layout-root .sc-lbl { font-size: 0.625rem; line-height: 1.2; }
+  .admin-layout-root .sc-bar { margin-top: 8px; }
 
   .admin-layout-root .page-header {
     flex-direction: column;
@@ -927,11 +928,6 @@ html.light .admin-layout-root .od-msg-err { color: #DC2626; }
     width: 100% !important; justify-content: center;
     margin-top: 8px; align-self: stretch;
   }
-}
-
-/* Drop to 1-col only on extra-narrow phones (< 380px) */
-@media (max-width: 380px) {
-  .admin-layout-root .stats { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
