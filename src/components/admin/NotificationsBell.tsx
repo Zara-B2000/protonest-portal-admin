@@ -130,11 +130,12 @@ export default function NotificationsBell() {
 
       {open && (
         <div className="notif-dropdown">
+          <div className="notif-panel-title">Notifications</div>
 
           {/* ── Unread Messages Section ── */}
           {unreadConvs.length > 0 && (
             <>
-              <div className="notif-section-head">
+              <div className="notif-section-head notif-section-head--msg">
                 <MessageSquare className="w-3 h-3" />
                 Unread Messages
                 <span className="notif-section-ct">{totalUnread}</span>
@@ -180,8 +181,9 @@ export default function NotificationsBell() {
           )}
 
           {/* ── System Notifications Section ── */}
-          <div className="notif-dropdown-head">
-            {unreadConvs.length > 0 ? "System Notifications" : "Recent Notifications"}
+          <div className="notif-section-head notif-section-head--sys">
+            <Bell className="w-3 h-3" />
+            System Activity
           </div>
           <div className="notif-dropdown-body">
             {loading ? (

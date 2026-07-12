@@ -74,7 +74,7 @@ export default function AdminSidebar({ profile, counts }: AdminSidebarProps) {
 
       <aside className="sidebar">
         <div className="s-logo">
-          <Link href="/"><img src="/protonest-logo.png" alt="Protonest" style={{ height: 40, width: "auto" }} /></Link>
+          <Link href="/"><img src="/protonest-logo.png" alt="Protonest" style={{ height: 52, width: "auto" }} /></Link>
           <span className="admin-badge" style={{ marginLeft: "auto" }}>Admin</span>
           <button
             onClick={closeSidebar}

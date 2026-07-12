@@ -73,8 +73,8 @@ export default async function AdminGatePage() {
         <div className="relative z-10 w-full flex flex-col flex-1">
           {/* Nav */}
           <nav className="w-full">
-            <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-              <img src="/protonest-logo.png" alt="Protonest" className="h-8 w-auto" />
+            <div className="w-full px-6 sm:px-10 h-20 flex items-center justify-between">
+              <img src="/protonest-logo.png" alt="Protonest" className="h-12 sm:h-14 w-auto" />
               <span className="hidden sm:inline-flex items-center gap-2 text-xs font-semibold text-slate-300 border border-white/10 rounded-full px-3 py-1 bg-white/[0.03] backdrop-blur-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 Internal Admin Portal
