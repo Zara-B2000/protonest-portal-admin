@@ -319,6 +319,7 @@ html.light .admin-layout-root .ph-sub {
   padding: 14px 16px 10px;
   font-size: 0.875rem; font-weight: 800; color: var(--text1);
   border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
 }
 
 /* Section header inside dropdown — shared style for both sub-sections */
@@ -328,6 +329,7 @@ html.light .admin-layout-root .ph-sub {
   font-size: 0.6875rem; font-weight: 700; color: var(--text3);
   text-transform: uppercase; letter-spacing: .07em;
   border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
 }
 .admin-layout-root .notif-section-head svg { flex-shrink: 0; }
 .admin-layout-root .notif-section-head--msg { background: rgba(52,211,153,.04); }
@@ -342,8 +344,8 @@ html.light .admin-layout-root .ph-sub {
   display: flex; align-items: center; justify-content: center; padding: 0 5px;
 }
 
-/* Message conversation items */
-.admin-layout-root .notif-msg-body { max-height: 200px; overflow-y: auto; }
+/* Message conversation items — always shown in full, never clipped/scrolled */
+.admin-layout-root .notif-msg-body { flex-shrink: 0; }
 .admin-layout-root .notif-item-msg {
   display: flex; gap: 11px; padding: 12px 16px;
   border-bottom: 1px solid var(--border);
@@ -370,7 +372,7 @@ html.light .admin-layout-root .ph-sub {
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 
-.admin-layout-root .notif-dropdown-body { overflow-y: auto; }
+.admin-layout-root .notif-dropdown-body { flex: 1 1 auto; min-height: 80px; overflow-y: auto; }
 .admin-layout-root .notif-item {
   display: flex; gap: 11px; padding: 12px 16px;
   border-bottom: 1px solid var(--border);
