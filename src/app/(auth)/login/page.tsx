@@ -3,7 +3,7 @@
 import { useState, Suspense } from "react";
 import Link from "next/link";
 import { createClient } from "@/services/supabase/client";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { verifyAndPromoteAdmin } from "./actions";
 
 // Spinner SVG — reused in both buttons
@@ -29,7 +29,6 @@ function LoginContent() {
   const [error, setError]           = useState<string | null>(null);
 
   const loading = loadingType !== null;
-  const router  = useRouter();
   const searchParams = useSearchParams();
   const successMsg = searchParams.get("message") === "registration-success"
     ? "Registration successful! Please sign in below."
@@ -70,8 +69,10 @@ function LoginContent() {
       }
 
       setLoadingStep("Redirecting…");
-      router.push("/admin/dashboard");
-      router.refresh();
+      // Hard navigation, not router.push()+refresh() — the client-side
+      // transition can race with refresh() and hang on slower connections
+      // (e.g. Vercel cold starts), leaving the user stuck on "Redirecting…".
+      window.location.href = "/admin/dashboard";
       // Keep spinner — page navigates away naturally
     } catch (err: any) {
       setError(err.message || "Something went wrong. Please try again.");
