@@ -106,7 +106,7 @@ function LoginContent() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden">
+    <div className="fixed inset-0 z-50 overflow-y-auto">
       <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
         rel="stylesheet"
@@ -233,8 +233,8 @@ function LoginContent() {
       <div style={{ position:"fixed", zIndex:0, pointerEvents:"none", width:400, height:400, background:"radial-gradient(circle,rgba(99,71,245,0.07) 0%,transparent 70%)", bottom:-80, right:"10%" }} />
 
       {/* ── Layout ── */}
-      <div style={{ position:"relative", zIndex:1, height:"100vh", display:"flex", fontFamily:"'Plus Jakarta Sans', sans-serif" }}>
-        <div className="pn-card pn-auth-container" style={{ position:"relative", display:"flex", width:"100%", height:"100%", overflow:"hidden" }}>
+      <div style={{ position:"relative", zIndex:1, minHeight:"100vh", display:"flex", fontFamily:"'Plus Jakarta Sans', sans-serif" }}>
+        <div className="pn-card pn-auth-container" style={{ position:"relative", display:"flex", width:"100%", minHeight:"100%", overflow:"visible" }}>
 
           {/* ── LEFT PANEL ── */}
           <div style={{ flex:1, maxWidth:"46%", flexShrink:0, padding:"50px 44px 40px", flexDirection:"column", position:"relative", overflow:"hidden" }} className="hidden lg:flex pn-auth-left-panel">

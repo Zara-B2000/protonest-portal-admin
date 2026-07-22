@@ -439,7 +439,7 @@ export default async function AdminDashboardPage({
                   <span className="count-badge cb-blue">{awaitingPayment.length} orders</span>
                 </div>
               </div>
-              <div className="tbl-wrap">
+              <div className="tbl-wrap tbl-money">
                 {awaitingPayment.length === 0 ? (
                   <div style={{ padding: "24px", textAlign: "center", color: "var(--text3)" }}>No orders awaiting payment.</div>
                 ) : (
@@ -504,7 +504,7 @@ export default async function AdminDashboardPage({
                   <span className="count-badge cb-purple">{activeOrders.length} active</span>
                 </div>
               </div>
-              <div className="tbl-wrap">
+              <div className="tbl-wrap tbl-money">
                 {activeOrders.length === 0 ? (
                   <div style={{ padding: "24px", textAlign: "center", color: "var(--text3)" }}>No active orders in production.</div>
                 ) : (
@@ -575,7 +575,7 @@ export default async function AdminDashboardPage({
                   <span className="count-badge cb-green">{deliveredOrders.length} completed</span>
                 </div>
               </div>
-              <div className="tbl-wrap">
+              <div className="tbl-wrap tbl-money">
                 {deliveredOrders.length === 0 ? (
                   <div style={{ padding: "24px", textAlign: "center", color: "var(--text3)" }}>No delivered orders yet.</div>
                 ) : (

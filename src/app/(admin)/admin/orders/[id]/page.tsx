@@ -258,14 +258,14 @@ export default function AdminOrderDetailPage() {
         <p className="od-sec-title">Uploaded Files</p>
         <div className="space-y-2">
           {files.map((f) => (
-            <div key={f.id as string} className="flex items-center justify-between py-2"
+            <div key={f.id as string} className="flex items-center justify-between gap-3 py-2"
               style={{ borderBottom: "1px solid var(--border)" }}>
-              <div>
+              <div className="min-w-0">
                 <p className="od-val">{FILE_TYPE_LABELS[f.file_type as keyof typeof FILE_TYPE_LABELS]}</p>
-                <p className="od-key text-xs">{f.original_name as string} · {formatFileSize(f.file_size_bytes as number | null)}</p>
+                <p className="od-key text-xs truncate">{f.original_name as string} · {formatFileSize(f.file_size_bytes as number | null)}</p>
               </div>
               <a href={`/api/files/${f.id}`} target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-1 text-xs hover:underline" style={{ color: "var(--p3)" }}>
+                className="flex items-center gap-1 text-xs hover:underline shrink-0" style={{ color: "var(--p3)" }}>
                 <FileDown className="w-3.5 h-3.5" /> Download
               </a>
             </div>

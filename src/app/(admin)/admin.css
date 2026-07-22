@@ -811,8 +811,12 @@ html.light .admin-layout-root .od-msg-err { color: #DC2626; }
   transition: opacity 0.3s ease;
 }
 
-/* ── RESPONSIVE MEDIA QUERIES ── */
-@media (max-width: 1024px) {
+/* ── RESPONSIVE MEDIA QUERIES ──
+   1023px (not 1024px) deliberately — Tailwind's `lg:` utilities used on the
+   sidebar toggle buttons switch at min-width:1024px, so this boundary has to
+   sit one pixel below that or there's a dead zone at exactly 1024px where the
+   sidebar is off-canvas AND the hamburger button that reopens it is hidden. */
+@media (max-width: 1023px) {
   .admin-layout-root {
     overflow-x: hidden;
   }
@@ -915,6 +919,11 @@ html.light .admin-layout-root .od-msg-err { color: #DC2626; }
   .admin-layout-root .tbl-wrap th:nth-child(4),
   .admin-layout-root .tbl-wrap td:nth-child(4) { display: none; }
 
+  /* Table action buttons (View / Send Quote / Message / etc.) — bump up to a
+     touch-friendly height on phone; 28px is comfortable with a mouse but too
+     small to reliably tap. */
+  .admin-layout-root .ta-btn { height: 36px; padding: 0 12px; }
+
   /* Order detail cards — tighter padding */
   .admin-layout-root .od-card,
   .admin-layout-root .od-warn-card { padding: 16px; }
@@ -941,9 +950,15 @@ html.light .admin-layout-root .od-msg-err { color: #DC2626; }
     max-height: 70vh;
   }
 
-  /* Hide Submitted column (6th) — leaves Order ID · Customer · Status · Actions */
-  .admin-layout-root .tbl-wrap th:nth-child(6),
-  .admin-layout-root .tbl-wrap td:nth-child(6) { display: none; }
+  /* Hide Submitted column (6th) — leaves Order ID · Customer · Status · Actions.
+     Financial tables (.tbl-money: Awaiting Payment / Active / Delivered) have an
+     extra Quote column at position 6, so they hide the Deadline/Delivery date
+     (7th) instead — keeping the price visible and dropping a date column, same
+     as the other tables. */
+  .admin-layout-root .tbl-wrap:not(.tbl-money) th:nth-child(6),
+  .admin-layout-root .tbl-wrap:not(.tbl-money) td:nth-child(6) { display: none; }
+  .admin-layout-root .tbl-wrap.tbl-money th:nth-child(7),
+  .admin-layout-root .tbl-wrap.tbl-money td:nth-child(7) { display: none; }
 
   /* Hide Settings gear from topbar — accessible via sidebar */
   .admin-layout-root .tb-actions > a.btn-icon { display: none; }
@@ -1067,7 +1082,7 @@ html[data-status-strip="off"] .admin-layout-root .line-status-strip {
   display: none;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   .admin-layout-root .line-status-strip {
     margin: 0 -16px 20px;
     padding: 9px 16px;

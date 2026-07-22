@@ -166,7 +166,7 @@ export default function AdminMessagesPanel({ profileId, initialConversations }: 
   });
 
   return (
-    <div className="flex h-[calc(100vh-7rem)] bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+    <div className="flex h-[calc(100dvh-7rem)] bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
       {/* ── Left Panel: Conversation List ──────────────────────── */}
       <div
         className={`w-full md:w-[340px] flex-shrink-0 border-r border-slate-200
